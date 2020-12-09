@@ -2,17 +2,6 @@ drop database if exists darivanje_djece;
 create database darivanje_djece;
 use darivanje_djece;
 
-
-create table osoba(
-	sifra int not null primary key auto_increment,
-	ime varchar(50) not null,
-	prezime varchar(50) not null,
-	oib char(11),
-	spol char(1) not null,
-	datum_rodenja date not null,
-	roditelj int
-);
-
 create table dijete(
 	sifra int not null primary key auto_increment,
 	ime varchar(50) not null,
@@ -43,10 +32,14 @@ create table kategorija(
 	spol char(1)	
 );
 
-
-alter table osoba add foreign key (roditelj) references osoba(sifra);
+create table poklon_kategorija(
+	poklon int not null,
+	kategorija int not null
+);
 
 alter table dijete add foreign key (roditelj) references roditelj(sifra);
 alter table dijete add foreign key (poklon) references poklon(sifra);
 
-alter table poklon add foreign key (kategorija) references kategorija(sifra);
+alter table poklon_kategorija add foreign key (poklon) references poklon(sifra);
+alter table poklon_kategorija add foreign key (kategorija) references kategorija(sifra);
+
